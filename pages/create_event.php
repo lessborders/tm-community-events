@@ -24,7 +24,9 @@
             ),
     
             "rules" => array(
-                "badge" => ""
+                "badge" => "",
+                "sale_active" => 0,
+                "prices_shown" => 0
             ),
     
             "tags" => array(),

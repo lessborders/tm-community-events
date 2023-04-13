@@ -105,7 +105,7 @@ if( current_user_can('edit_posts') ) {
         function column_default($item, $column_name){
             switch($column_name){
                 case 'tags':
-                    return implode(", ", $item->$column_name);
+                    return implode(", ", (array) $item->$column_name);
                 case 'ev_date':
                     return ticketmachine_i18n_date("d.m.Y", $item->$column_name);
                 case 'endtime':
@@ -138,6 +138,10 @@ if( current_user_can('edit_posts') ) {
             //Build row actions
             $actions = array(
             );
+
+            if(!$item->ev_name) {
+                $item->ev_name = "undefined";
+            } 
             
             //Return the title contents
             return sprintf('%1$s %2$s',
@@ -208,7 +212,7 @@ if( current_user_can('edit_posts') ) {
             $sortable_columns = array(
                 'ev_name'   => array('ev_name',false), //true means it's already sorted
                 'tags'      => array('tags',false),
-                'ev_date'   => array('ev_date',false),
+                'ev_date'   => array('ev_date',true),
                 'endtime'   => array('endtime',false)
             );
             return $sortable_columns;
@@ -333,7 +337,7 @@ if( current_user_can('edit_posts') ) {
              * sorting technique would be unnecessary.
              */
             function usort_reorder($a,$b){
-                $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'ev_name'; //If no sort, default to title
+                $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'ev_date'; //If no sort, default to title
                 $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'asc'; //If no order, default to asc
                 $result = strcmp($a->$orderby, $b->$orderby); //Determine sort order
                 return ($order==='asc') ? $result : -$result; //Send final sort direction to usort
@@ -424,7 +428,7 @@ if( current_user_can('edit_posts') ) {
                 <h1 class="dont-display"></h1>
 
                 <div class="row">
-                    <div class="col-xl-9">
+                    <div class="col-12">
                         
                         <h1 class="wp-heading-inline mr-3 mb-3 mb-md-0">
                             TicketMachine <i class="fas fa-angle-right mx-1"></i> <?php esc_html_e('Community Events', 'ticketmachine-event-manager'); ?>
