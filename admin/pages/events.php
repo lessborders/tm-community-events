@@ -104,6 +104,8 @@ if( current_user_can('edit_posts') ) {
          **************************************************************************/
         function column_default($item, $column_name){
             switch($column_name){
+                case 'id':
+                    return (int) $item->$column_name;
                 case 'tags':
                     return implode(", ", (array) $item->$column_name);
                 case 'ev_date':
@@ -185,6 +187,7 @@ if( current_user_can('edit_posts') ) {
         function get_columns(){
             $columns = array(
                 //'cb'       => '<input type="checkbox" />',
+                'id'       => esc_html__('ID', 'ticketmachine-event-manager'),
                 'ev_name'  => esc_html__('Name', 'ticketmachine-event-manager'),
                 'tags'     => esc_html__('Tags', 'ticketmachine-event-manager'),
                 'ev_date'  => esc_html__('Start date', 'ticketmachine-event-manager'),
@@ -210,9 +213,10 @@ if( current_user_can('edit_posts') ) {
          **************************************************************************/
         function get_sortable_columns() {
             $sortable_columns = array(
-                'ev_name'   => array('ev_name',false), //true means it's already sorted
+                'id'        => array('id',false), //true means it's already sorted
+                'ev_name'   => array('ev_name',false),
                 'tags'      => array('tags',false),
-                'ev_date'   => array('ev_date',true),
+                'ev_date'   => array('ev_date',false),
                 'endtime'   => array('endtime',false)
             );
             return $sortable_columns;
@@ -337,9 +341,13 @@ if( current_user_can('edit_posts') ) {
              * sorting technique would be unnecessary.
              */
             function usort_reorder($a,$b){
-                $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'ev_date'; //If no sort, default to title
-                $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'asc'; //If no order, default to asc
-                $result = strcmp($a->$orderby, $b->$orderby); //Determine sort order
+                $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'id'; //If no sort, default to title
+                $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'desc'; //If no order, default to asc
+                if(is_numeric($a->$orderby) || is_numeric($b->$orderby)) {
+                    $result = $a->$orderby - $b->$orderby;
+                }else{
+                    $result = strcmp($a->$orderby, $b->$orderby); //Determine sort order
+                }
                 return ($order==='asc') ? $result : -$result; //Send final sort direction to usort
             }
             if(empty($data)){
