@@ -105,6 +105,7 @@
             wp_enqueue_script( 'core_JS' );
             //FileSaver
             wp_enqueue_script( 'fileSaver_JS' );
+            wp_enqueue_script( 'tm_captcha_JS', plugins_url('assets/js/captcha.js', __FILE__ ) );;
             
             wp_enqueue_style( 'datetimepicker_CSS', plugins_url('assets/css/ext/bootstrap-datetimepicker.css', __FILE__ ) );
             wp_enqueue_style( 'fontawesome-5_CSS', plugins_url('assets/css/ext/fontawesome.min.css', __FILE__ ) );

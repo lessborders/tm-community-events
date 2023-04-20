@@ -3,6 +3,7 @@
     global $tm_globals, $api, $wpdb;
 
 	if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
+        $errors = array();
 
         if ( ! isset( $_POST['ticketmachine_communityevents_event_create_form_nonce'] ) || ! wp_verify_nonce( $_POST['ticketmachine_communityevents_event_create_form_nonce'], 'ticketmachine_communityevents_action_save_event' ) ) {
             print 'Sorry, your nonce did not verify.';
@@ -11,7 +12,10 @@
             unset($_POST['ticketmachine_communityevents_event_create_form_nonce']);
             unset($_POST['_wp_http_referer']);
             $tm_post = $_POST;
-            $errors = array();
+
+            if($tm_post["captcha_check"] && $tm_post["captcha_check"] != $tm_post["captcha_submit"]) {
+                $errors[] = __("Captcha failed.", "ticketmachine-community-events");
+            }
     
             if(!isset($tm_post['approved'])) {
                 $tm_post['approved'] = 0;
@@ -25,23 +29,23 @@
             if(isset($tm_post['entrytime'])) {
                 $tm_post['entrytime'] = sanitize_text_field(ticketmachine_i18n_reverse_date($tm_post['entrytime']['date'] . $tm_post['entrytime']['time']));
             }else{
-                $errors[] = "No entry time was set";
+                $errors[] = __("No entry time was set", "ticketmachine-community-events");
             }
             if(isset($tm_post['ev_date'])) {
                 $tm_post['ev_date'] = sanitize_text_field(ticketmachine_i18n_reverse_date($tm_post['ev_date']['date'] . $tm_post['ev_date']['time']));
             }else{
-                $errors[] = "No start time was set";
+                $errors[] = __("No start time was set", "ticketmachine-community-events");
             }
             if(isset($tm_post['endtime'])) {
                 $tm_post['endtime'] = sanitize_text_field(ticketmachine_i18n_reverse_date($tm_post['endtime']['date'] . $tm_post['endtime']['time']));
             }else{
-                $errors[] = "No end time was set";
+                $errors[] = __("No end time was set", "ticketmachine-community-events");
             }
     
             if(!empty($tm_post['ev_name'])) {
                 $tm_post['ev_name'] = sanitize_text_field($tm_post['ev_name']);
             }else{
-                $errors[] = "No event title was set";
+                $errors[] = __("No event title was set", "ticketmachine-community-events");
             }
     
             if(isset($tm_post['description'])) {
@@ -55,7 +59,7 @@
             $tm_post['vat_id'] = 1;
     
             if(empty($tm_globals->organizer_id) || !is_int($tm_globals->organizer_id)){
-                $errors[] = "No organizer id could be found";
+                $errors[] = __("No organizer id could be found", "ticketmachine-community-events");
             }
     
             $tm_post['organizer_id'] = absint($tm_globals->organizer_id);
@@ -67,6 +71,8 @@
             }
             
             if(empty($errors)){
+                unset($tm_post["captcha_check"]);
+                unset($tm_post["captcha_submit"]);
     
                 if(!empty($tm_post['event_location'])) {
                     $tm_event_location = $tm_post['event_location'];
@@ -109,7 +115,7 @@
     
                 $messages = array(
                     "type" => "success",
-                    "message" => "Event submitted for review!"
+                    "message" => __("Event submitted for review!", "ticketmachine-community-events")
                 );
     
                 $to = get_option('admin_email');

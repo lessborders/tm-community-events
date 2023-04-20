@@ -57,7 +57,7 @@
 
         $ticketmachine_communityevents_output = "";
 
-        if(!empty($_GET['success']) && $_GET['success'] == 1) {
+        if(!empty($_GET['success']) && $_GET['success'] == 1 && empty($errors)) {
             $messages = array(
                 "type" => "success",
                 "message" => "Event submitted for review!"
@@ -76,7 +76,7 @@
     
         $event = (object)$event;
 
-        $ticketmachine_communityevents_output .= '<form name="event" action="" method="post" id="event">';
+        $ticketmachine_communityevents_output .= '<form name="event" action="" method="post" id="event" onsubmit="checkCaptcha()">';
             $ticketmachine_communityevents_output .= wp_nonce_field( 'ticketmachine_communityevents_action_save_event', 'ticketmachine_communityevents_event_create_form_nonce' );
 
             $ticketmachine_communityevents_output .= '<div class="row">
@@ -240,6 +240,21 @@
                                             </div>';
 
             $ticketmachine_communityevents_output .= '<div class="row">
+                                                        <div class="col-12 col-md-6 mt-3 text-right">
+
+                                                            <div id="captcha_image" class="d-inline-block" selectable="False"></div>
+
+                                                            <div class="d-inline-block" onclick="generate()">
+                                                                <i class="fas fa-sync"></i>
+                                                            </div>
+                                                            
+                                                            <input name="captcha_submit" class="form-control mt-3" type="text" id="captcha_submit" placeholder="Captcha Code" required />
+ 
+                                                            <input name="captcha_check" class="d-none" type="text" id="captcha_check" required />
+                                                        </div>
+                                                    </div>';
+
+            $ticketmachine_communityevents_output .= '<div class="row">
                                                         <div class="col-12 mt-3 text-right">
                                                             <div class="form-group form-check">
                                                                 <input type="checkbox" class="form-check-input" id="dataprivacy" required>
@@ -280,3 +295,15 @@
         return $ticketmachine_communityevents_output;
     }
 ?>
+
+<style>
+    div#captcha_image {
+        padding: 0.25em 1em;
+        user-select: none;
+        font-style: italic;
+        font-size: x-large;
+        border: 2px solid;
+        margin-right: 10px;
+        vertical-align: baseline;
+    }
+</style>
