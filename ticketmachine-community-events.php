@@ -20,7 +20,7 @@
      * Load plugin textdomain.
      */
     function ticketmachine_communityevents_load_textdomain() {
-    load_plugin_textdomain( 'ticketmachine_community-events', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+        load_plugin_textdomain( 'ticketmachine-community-events', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
     }
 
 	function ticketmachine_communityevents_check_some_other_plugin() {

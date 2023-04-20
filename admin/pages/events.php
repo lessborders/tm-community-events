@@ -447,7 +447,7 @@ if( current_user_can('edit_posts') ) {
                             <ul class="subsubsub">
                                 <li class="draft">
                                     <a href="<?php echo admin_url('admin.php?page=ticketmachine_communityevents_events&status=review'); ?>" class="current">
-                                        <?php esc_html_e('For review', 'ticketmachine-community-events'); ?> 
+                                        <?php __('For review', 'ticketmachine-community-events'); ?> 
                                         <span class="count"></span> <!-- TO DO add logic -->
                                     </a>
                                 </li>
