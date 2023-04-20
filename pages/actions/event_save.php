@@ -119,8 +119,8 @@
                 );
     
                 $to = get_option('admin_email');
-                $subject = 'Someone submitted an event';
-                $message = 'Test';
+                $subject = __('Someone submitted an event', 'ticketmachine-community-events');
+                $message = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]" . '/wp-admin/admin.php?page=ticketmachine_events&action=edit&mode=community&id=' . $wpdb->insert_id;
                 wp_mail($to, $subject, $message );
                 unset($_POST);
                 $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
