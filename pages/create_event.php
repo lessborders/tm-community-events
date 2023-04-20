@@ -61,7 +61,7 @@
         if(!empty($_GET['success']) && $_GET['success'] == 1 && empty($errors)) {
             $messages = array(
                 "type" => "success",
-                "message" => "Event submitted for review!"
+                "message" => __("Event submitted for review!", "ticketmachine-community-events")
             );
         }
 
