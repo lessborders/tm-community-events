@@ -14,6 +14,15 @@
 
 	add_action( 'init', 'ticketmachine_communityevents_check_some_other_plugin' );
 
+    add_action( 'init', 'wpdocs_load_textdomain' );
+ 
+    /**
+     * Load plugin textdomain.
+     */
+    function wpdocs_load_textdomain() {
+    load_plugin_textdomain( 'wpdocs_textdomain', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' ); 
+    }
+
 	function ticketmachine_communityevents_check_some_other_plugin() {
 	}
 

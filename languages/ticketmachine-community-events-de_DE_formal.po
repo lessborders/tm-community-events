@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2023-04-20 12:54+0200\n"
+"PO-Revision-Date: 2023-04-20 13:08+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: languages\n"
+
+#: pages/actions/event_save.php:17
+msgid "Captcha failed."
+msgstr "Captcha fehlgeschlagen."
+
+#: pages/actions/event_save.php:32
+msgid "No entry time was set"
+msgstr "Es wurde keine Einlasszeit festgelegt"
+
+#: pages/actions/event_save.php:37
+msgid "No start time was set"
+msgstr "Es wurde kein Beginndatum festgelegt"
+
+#: pages/actions/event_save.php:42
+msgid "No end time was set"
+msgstr "Es wurde kein Enddatum festgelegt"
+
+#: pages/actions/event_save.php:48
+msgid "No event title was set"
+msgstr "Es wurde kein Veranstaltungstitel festgelegt"
+
+#: pages/actions/event_save.php:62
+msgid "No organizer id could be found"
+msgstr "Es konnte keine organizer id gefunden werden"
+
+#: pages/actions/event_save.php:118
+msgid "Event submitted for review!"
+msgstr "Die Veranstaltung wurde zur Überprüfung eingereicht!"
