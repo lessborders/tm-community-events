@@ -1,4 +1,5 @@
 <?php
+	if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
     function ticketmachine_communityevents_create_event($atts){
 			
         global $tm_globals, $api, $wpdb;
